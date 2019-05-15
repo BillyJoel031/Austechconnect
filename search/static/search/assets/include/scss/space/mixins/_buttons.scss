@@ -1,0 +1,15 @@
+//
+// Buttons
+//
+
+// Text Buttons
+@mixin button-text($hs-color, $hs-hover-color) {
+  color: ($hs-color);
+  background: transparent;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: ($hs-hover-color);
+  }
+}

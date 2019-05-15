@@ -1,0 +1,11 @@
+/*------------------------------------
+  Background Gradients
+------------------------------------*/
+
+.gradient-half-primary-v1 {
+	@include gradient-x($hs-start-color: $purple, $hs-end-color: $primary, $deg: 25deg);
+}
+
+.gradient-half-purple-v1 {
+  @include gradient-x($hs-start-color: $purple, $hs-end-color: $blue, $hs-start-percent: 45%, $deg: 35deg);
+}

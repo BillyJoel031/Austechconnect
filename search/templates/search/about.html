@@ -1,0 +1,10 @@
+% rebase('base.html')
+
+<p> {{!message}}</p>
+
+% if usernick != None:
+    <p>Logged in as {{usernick}}</p>
+    <form method ="POST" action="/logout" id="logoutform">
+    <input type="submit" name ="logout" value="Logout"/>
+    </form>
+%end

@@ -1,0 +1,611 @@
+{% extends 'search/base.html' %}
+
+{% load staticfiles %}
+
+{% block extra_js %}
+    <script src="{% static 'search/assets/js/main.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="d-lg-flex bg-img-hero gradient-overlay-half-dark-v3" style="background: black;">
+        <div class="container d-lg-flex align-items-lg-center flex-lg-wrap height-30vh--lg space-2 space-4-top--md space-3-bottom--md">
+
+            <!-- Search Form -->
+            <div class="login">
+                % if usernick == None:
+                <form method="POST" action="/login" id="loginform">
+                    <label for="nick"></label>
+                    <input type="text" placeholder="username" name="nick"/>
+                    <label for="password"></label>
+                    <input type="password" placeholder="password" name="password"/>
+                    <input type="submit" value="Login"/>
+                </form>
+                %end
+
+            </div>
+            <div class="loggedin">
+                % if usernick != None:
+                <p>Logged in as {{ usernick }}</p>
+                <form method="POST" action="/logout" id="logoutform">
+                    <input type="submit" name="logout" value="Logout"/>
+                </form>
+                %end
+            </div>
+            <form class="js-validate w-100" id="search_form" target="{% url 'api_search' %}">
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0" style="margin-left: 13%">
+                        <!-- Input -->
+                        <label class="d-block text-white font-weight-medium text-uppercase">Search</label>
+                        <div class="input-group form">
+                            <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                        <span class="fas fa-map-marker-alt text-purple" id="keywordInputAddon"></span>
+                                </span>
+                            </div>
+
+                            <input name="keywords" type="text" class="form-control form__input"
+                                   placeholder="Enter keywords"
+                                   aria-label="Enter city" aria-describedby="keywordInputAddon">
+                        </div>
+                        <div class="input-group form">
+                            <label class="d-block text-white font-weight-medium text-uppercase"
+                                   for="categorySelect">Category</label>
+                            <select class="form-control" id="categorySelect" name="category">
+                                <option value="0">All Categories</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.pk }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- End Input -->
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
+                        <!-- Input -->
+                        <label class="d-block text-white font-weight-medium text-uppercase">Where</label>
+                        <div class="input-group form">
+                            <div class="input-group-prepend form__prepend">
+                  <span class="input-group-text form__text">
+                    <span class="fas fa-map-marker-alt text-primary" id="locationInputAddon"></span>
+                  </span>
+                            </div>
+                            <input name="location" type="text" class="form-control form__input"
+                                   placeholder="Enter a city, suburb or region" aria-label="Enter destination"
+                                   aria-describedby="locationInputAddon">
+                        </div>
+                        <!-- End Input -->
+                    </div>
+
+                    <div class="col-lg-2 align-self-lg-end">
+                        <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Search</button>
+                    </div>
+                </div>
+            </form>
+            <!-- End Search Form -->
+        </div>
+    </div>
+    <!-- Search results section-->
+    <div class="container" id="result">
+
+    </div>
+    <!-- Hero Section -->
+    <div class="js-slick-carousel u-slick"
+         data-infinite="true"
+         data-autoplay="true"
+         data-speed="7000"
+         data-fade="true"
+         data-adaptive-height="true"
+         data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-classic u-slick__arrow-centered--y rounded-circle"
+         data-arrow-left-classes="fa fa-arrow-left u-slick__arrow-classic-inner u-slick__arrow-classic-inner--left ml-lg-2 ml-xl-4"
+         data-arrow-right-classes="fa fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4"
+         data-numbered-pagination="#slickPaging">
+        <!-- Slide #1 -->
+        <div class="js-slide">
+            <div class="d-md-flex align-items-md-center height-100vh--lg gradient-overlay-half-dark-v2 bg-img-hero"
+                 style="background-image: url(/static/search/assets/img/1920x1080/img13.jpg);">
+                <div class="container text-center space-2 space-3--md">
+                    <!-- Description -->
+                    <div class="w-lg-80 mx-lg-auto mb-3">
+                        <h1 class="display-3 font-size-48--md-down text-white"
+                            data-scs-animation-in="fadeInUp">Welcome to AusTechConnect</h1>
+
+                    </div>
+                    <div class="w-lg-50 mx-lg-auto mb-7">
+                        <p class="lead text-white"
+                           data-scs-animation-in="fadeInUp"
+                           data-scs-animation-delay="200">This is your one stop for all medical resources and
+                            information.</p>
+                    </div>
+                    <div data-scs-animation-in="fadeInUp"
+                         data-scs-animation-delay="400">
+                        <a class="btn btn-light" href="#signupModal" role="button" data-modal-target="#signupModal">
+                            <span class="fa fa-user-circle mr-1"></span>
+                            Get Started with AusTechConnect
+                        </a>
+                    </div>
+                    <!-- End Description -->
+                </div>
+            </div>
+        </div>
+        <!-- End Slide #1 -->
+
+        <!-- Slide #2 -->
+        <div class="js-slide">
+            <div class="d-md-flex align-items-md-center height-100vh--lg gradient-overlay-half-dark-v2 bg-img-hero"
+                 style="background-image: url(/static/search/assets/img/1920x1080/img14.jpg);">
+                <div class="container text-center space-2 space-3--md">
+                    <!-- Description -->
+                    <div class="w-lg-80 mx-lg-auto mb-3">
+                        <h1 class="display-3 font-size-48--md-down text-white"
+                            data-scs-animation-in="fadeInUp">Connecting students, researchers and investors</h1>
+                    </div>
+                    <div class="w-lg-50 mx-lg-auto mb-7">
+                        <p class="lead text-white"
+                           data-scs-animation-in="fadeInUp"
+                           data-scs-animation-delay="200">Our mission is to connect people with the right information
+                            and with the right people.</p>
+                    </div>
+                    <div data-scs-animation-in="fadeInUp"
+                         data-scs-animation-delay="400">
+                        <a class="btn btn-light" href="#signupModal" role="button" data-modal-target="#signupModal">
+                            <span class="fa fa-user-circle mr-1"></span>
+                            Get Started with AusTechConnect
+                        </a>
+                    </div>
+                    <!-- End Description -->
+                </div>
+            </div>
+        </div>
+        <!-- End Slide #2 -->
+
+        <!-- Slide #3 -->
+        <div class="js-slide">
+            <div class="d-md-flex align-items-md-center height-100vh--lg gradient-overlay-half-dark-v2 bg-img-hero"
+                 style="background-image: url(/static/search/assets/img/1920x1080/img15.jpg);">
+                <div class="container text-center space-2 space-3--md">
+                    <!-- Description -->
+                    <div class="w-lg-80 mx-lg-auto mb-3">
+                        <h1 class="display-3 font-size-48--md-down text-white"
+                            data-scs-animation-in="fadeInUp">Registration makes it easier</h1>
+                    </div>
+                    <div class="w-lg-50 mx-lg-auto mb-7">
+                        <p class="lead text-white"
+                           data-scs-animation-in="fadeInUp"
+                           data-scs-animation-delay="200">Sign in or Register to see your saved searches and saved
+                            resources on all your devices cases.</p>
+                    </div>
+                    <div data-scs-animation-in="fadeInUp"
+                         data-scs-animation-delay="400">
+                        <a class="btn btn-light" href="#signupModal" role="button" data-modal-target="#signupModal">
+                            <span class="fa fa-user-circle mr-1"></span>
+                            Get Started with AusTechConnect
+                        </a>
+                    </div>
+                    <!-- End Description -->
+                </div>
+            </div>
+        </div>
+        <!-- End Slide #3 -->
+    </div>
+    <!-- End Hero Section -->
+
+    <!-- Hero Slick Paging -->
+    <div class="container position-relative">
+        <div id="slickPaging" class="u-slick__paging-v1"></div>
+    </div>
+    <!-- End Hero Slick Paging -->
+
+    <!-- Features Section -->
+
+    <div class="container space-2 space-3--lg">
+        <!-- Title -->
+        <div class="w-md-80 w-lg-60 text-center mx-md-auto mb-9">
+            <span class="u-label u-label--sm u-label--purple mb-3">Key features</span>
+            <h2 class="h3">Search for medical resources</h2>
+            <p> Our latest venture is here to help you with your researches and find medical information at your
+                convenience</p>
+        </div>
+        <!-- End Title -->
+
+        <div class="row justify-content-lg-between align-items-lg-center">
+            <div class="col-lg-5 mb-7 mb-lg-0">
+                <!-- Slick Carousel - Features Main -->
+                <div id="featuresSlickNavMain"
+                     class="js-slick-carousel u-slick u-slick--pagination-simple u-slick--transform-off"
+                     data-infinite="true"
+                     data-autoplay="true"
+                     data-speed="7000"
+                     data-slides-show="3"
+                     data-adaptive-height="true"
+                     data-vertical="true"
+                     data-vertical-swiping="true"
+                     data-focus-on-select="true"
+                     data-nav-for="#featuresSlickNavThumb">
+                    <!-- Slide Item -->
+                    <div class="js-slide u-slick--pagination-simple__item">
+                        <div class="media">
+                <span class="u-slick--pagination-simple__icon rounded-circle mr-3">
+                  <span class="u-slick--pagination-simple__icon-inner">1</span>
+                </span>
+                            <div class="media-body">
+                                <h3 class="h6 u-slick--pagination-simple__title">Powerful search engine</h3>
+                                <p class="u-slick--pagination-simple__text">Our powerful search engine allows you to
+                                    find your desired resources quickly.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Slide Item -->
+
+                    <!-- Slide Item -->
+                    <div class="js-slide u-slick--pagination-simple__item">
+                        <div class="media">
+                <span class="u-slick--pagination-simple__icon rounded-circle mr-3">
+                  <span class="u-slick--pagination-simple__icon-inner">2</span>
+                </span>
+                            <div class="media-body">
+                                <h4 class="h6 u-slick--pagination-simple__title">Registration</h4>
+                                <p class="u-slick--pagination-simple__text">Manage your profile and customise as you
+                                    wish</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Slide Item -->
+
+                    <!-- Slide Item -->
+                    <div class="js-slide u-slick--pagination-simple__item">
+                        <div class="media">
+                <span class="u-slick--pagination-simple__icon rounded-circle mr-3">
+                  <span class="u-slick--pagination-simple__icon-inner">3</span>
+                </span>
+                            <div class="media-body">
+                                <h4 class="h6 u-slick--pagination-simple__title">Connect or add yourself as a
+                                    resource</h4>
+                                <p class="u-slick--pagination-simple__text">Help everyone</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Slide Item -->
+                </div>
+                <!-- End Slick Carousel - Features Main -->
+            </div>
+
+            <div class="col-lg-6">
+                <!-- Slick Carousel - Features Main -->
+                <div id="featuresSlickNavThumb" class="js-slick-carousel u-slick"
+                     data-infinite="true"
+                     data-autoplay="true"
+                     data-speed="7000"
+                     data-fade="true"
+                     data-is-thumbs="true"
+                     data-nav-for="#featuresSlickNavMain">
+                    <div class="js-slide">
+                        <object type="image/svg+xml"
+                                data="/static/search/assets/svg/mockups/laptop-mockup-1.svg"></object>
+                    </div>
+
+                    <div class="js-slide">
+                        <object type="image/svg+xml"
+                                data="/static/search/assets/svg/mockups/laptop-mockup-2.svg"></object>
+                    </div>
+
+                    <div class="js-slide">
+                        <object type="image/svg+xml"
+                                data="/static/search/assets/svg/mockups/laptop-and-phone-2.svg"></object>
+                    </div>
+                </div>
+                <!-- End Slick Carousel - Features Main -->
+            </div>
+        </div>
+    </div>
+    <!-- End Features Section -->
+
+    <!-- FAQ Section -->
+    <div class="container space-2 space-3--lg">
+        <div class="row justify-content-lg-between">
+            <div class="col-lg-4 mb-7 mb-lg-0">
+                <!-- Info -->
+                <div class="bg-dark shadow-sm rounded p-5 mt-lg-9">
+                    <h3 class="text-white">Have a question?</h3>
+                    <p class="text-light-70">Call us and we'll be happy to help.</p>
+
+                    <address class="mb-0">
+                        <span class="d-block text-light-70 font-weight-medium py-1">+1 (062) 109-9222</span>
+                        <span class="d-block text-light-70 font-weight-light py-1">Monday - Friday</span>
+                        <span class="d-block text-light-70 font-weight-light py-1">9AM - 6PM Eastern Time</span>
+                    </address>
+                </div>
+                <!-- End Info -->
+            </div>
+
+            <div class="col-lg-7">
+                <!-- Title -->
+                <div class="mb-4">
+                    <h2 class="h3">Frequently asked question</h2>
+                </div>
+                <!-- End Title -->
+
+                <!-- Accordion -->
+                <div class="mb-5" id="basicsAccordion">
+                    <div class="card card-collapse mb-3">
+                        <div class="card-header card-collapse__header" id="basicsHeadingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link btn-block d-flex justify-content-between card-collapse__btn collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#basicsCollapseOne"
+                                        aria-expanded="false"
+                                        aria-controls="basicsCollapseOne">
+                                    Do you want to know how to enlist yourself as a resource?
+
+                                    <span class="card-collapse__btn-arrow">
+                      <span class="fa fa-arrow-down card-collapse__btn-arrow-inner"></span>
+                    </span>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="basicsCollapseOne" class="collapse"
+                             aria-labelledby="basicsHeadingOne"
+                             data-parent="#basicsAccordion">
+                            <div class="card-body card-collapse__body">
+                                ............
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-collapse mb-3">
+                        <div class="card-header card-collapse__header" id="basicsHeadingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link btn-block d-flex justify-content-between card-collapse__btn collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#basicsCollapseTwo"
+                                        aria-expanded="false"
+                                        aria-controls="basicsCollapseTwo">
+                                    Legal enquiries?
+
+                                    <span class="card-collapse__btn-arrow">
+                      <span class="fa fa-arrow-down card-collapse__btn-arrow-inner"></span>
+                    </span>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="basicsCollapseTwo" class="collapse"
+                             aria-labelledby="basicsHeadingTwo"
+                             data-parent="#basicsAccordion">
+                            <div class="card-body card-collapse__body">
+                                ....
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-collapse mb-3">
+                        <div class="card-header card-collapse__header" id="basicsHeadingThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link btn-block d-flex justify-content-between card-collapse__btn collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#basicsCollapseThree"
+                                        aria-expanded="false"
+                                        aria-controls="basicsCollapseThree">
+                                    What are the benefits?
+
+                                    <span class="card-collapse__btn-arrow">
+                      <span class="fa fa-arrow-down card-collapse__btn-arrow-inner"></span>
+                    </span>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="basicsCollapseThree" class="collapse"
+                             aria-labelledby="basicsHeadingThree"
+                             data-parent="#basicsAccordion">
+                            <div class="card-body card-collapse__body">
+                                As creatives, it's important that we strive to do work outside of obligation. This lets
+                                us stay ahead of the curve for our clients and internal projects. At the end of the day,
+                                it's important to not let being busy distract us from having fun. Smiling, laughing, and
+                                hanging helps us work together to achieve this.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-collapse">
+                        <div class="card-header card-collapse__header" id="basicsHeadingFour">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link btn-block d-flex justify-content-between card-collapse__btn collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#basicsCollapseFour"
+                                        aria-expanded="false"
+                                        aria-controls="basicsCollapseFour">
+                                    How do I change my password?
+
+                                    <span class="card-collapse__btn-arrow">
+                      <span class="fa fa-arrow-down card-collapse__btn-arrow-inner"></span>
+                    </span>
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="basicsCollapseFour" class="collapse"
+                             aria-labelledby="basicsHeadingFour"
+                             data-parent="#basicsAccordion">
+                            <div class="card-body card-collapse__body">
+                                Understanding who you are and what you want is our strategy for your brand. We are
+                                always figuring out ways to capture your vision, so people can get on board.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Accordion -->
+
+                <a href="../pages/help.html">See all FAQs</a>
+            </div>
+        </div>
+    </div>
+    <!-- End FAQ Section -->
+
+    <!-- News Section -->
+    <div class="bg-gray-100">
+        <div class="container space-2 space-3--lg">
+            <!-- Title -->
+            <div class="w-md-80 w-lg-60 text-center mx-md-auto mb-9">
+                <span class="u-label u-label--sm u-label--purple mb-3">News</span>
+                <h2 class="h3">Read our news &amp; blogs</h2>
+                <p>Our duty towards you is to share our experience we're reaching in our work path with you.</p>
+            </div>
+            <!-- End Title -->
+
+            <div class="card-deck d-block d-lg-flex">
+                <article class="card border-0 mb-5">
+                    <div class="card-body row align-items-stretch no-gutters p-0">
+                        <!-- News Blog Card -->
+                        <div class="col-7 border border-right-0 rounded-left">
+                            <div class="p-5">
+                                <h2 class="h5 mb-3">
+                                    <a href="../blog/single-article-classic.html">Announcing a free plan for small
+                                        teams</a>
+                                </h2>
+                                <p class="mb-0">We've always believed that by providing a space where.</p>
+                            </div>
+                        </div>
+                        <div class="col-5 card-img-right border border-left-0 bg-img-hero"
+                             data-bg-img-src="/static/search/assets/img/500x550/img1.jpg"></div>
+                    </div>
+                    <!-- End News Blog Card -->
+                </article>
+
+                <article class="card border-0 mb-5">
+                    <div class="card-body row align-items-stretch no-gutters p-0">
+                        <!-- News Blog Card -->
+                        <div class="col-7 border border-right-0 rounded-left">
+                            <div class="p-5">
+                                <h2 class="h5 mb-3">
+                                    <a href="../blog/single-article-classic.html">2018's most expensive house</a>
+                                </h2>
+                                <p class="mb-0">At Wake, our mission has always been focused on..</p>
+                            </div>
+                        </div>
+                        <div class="col-5 card-img-right border border-left-0 bg-img-hero"
+                             data-bg-img-src="/static/search/assets/img/500x550/img2.jpg"></div>
+                    </div>
+                    <!-- End News Blog Card -->
+                </article>
+            </div>
+
+            <div class="card-deck d-block d-lg-flex">
+                <article class="card border-0 mb-5">
+                    <div class="card-body row align-items-stretch no-gutters p-0">
+                        <!-- News Blog Card -->
+                        <div class="col-7 border border-right-0 rounded-left">
+                            <div class="p-5">
+                                <h2 class="h5 mb-3">
+                                    <a href="../blog/single-article-classic.html">Key benefits of my portfolio
+                                        update</a>
+                                </h2>
+                                <p class="mb-0">Portfolio offers a user a new way of experiencing design.</p>
+                            </div>
+                        </div>
+                        <div class="col-5 card-img-right border border-left-0 bg-img-hero"
+                             data-bg-img-src="/static/search/assets/img/500x550/img3.jpg"></div>
+                    </div>
+                    <!-- End News Blog Card -->
+                </article>
+
+                <article class="card border-0 mb-5">
+                    <div class="card-body row align-items-stretch no-gutters p-0">
+                        <!-- News Blog Card -->
+                        <div class="col-7 border border-right-0 rounded-left">
+                            <div class="p-5">
+                                <h2 class="h5 mb-3">
+                                    <a href="../blog/single-article-classic.html">ICOs have raised $2 billion this
+                                        year</a>
+                                </h2>
+                                <p class="mb-0">Despite the quality of this year's initial crowd offerings.</p>
+                            </div>
+                        </div>
+                        <div class="col-5 card-img-right border border-left-0 bg-img-hero"
+                             data-bg-img-src="/static/search/assets/img/500x550/img4.jpg"></div>
+                    </div>
+                    <!-- End News Blog Card -->
+                </article>
+            </div>
+        </div>
+    </div>
+    <!-- End News Section -->
+
+    <!-- CTA -->
+    <div class="gradient-overlay-half-primary-v1">
+        <div class="bg-img-hero" style="background-image: url(/static/search/assets/img/bg/bg2.png);">
+            <div class="container text-center space-2">
+                <!-- Title -->
+                <div class="w-md-80 w-lg-60 text-center mx-md-auto mb-9">
+                    <h2 class="h1 text-white">All in one place for medicatal resources</h2>
+                    <p class="lead text-white">AUSTechConnect is here to serve your research purposes.</p>
+                </div>
+                <!-- End Title -->
+
+                <!-- Slick Carousel -->
+                <div class="js-slick-carousel u-slick"
+                     data-autoplay="true"
+                     data-speed="5000"
+                     data-infinite="true"
+                     data-slides-show="6"
+                     data-responsive='[{
+                 "breakpoint": 1200,
+                 "settings": {
+                   "slidesToShow": 4
+                 }
+               }, {
+                 "breakpoint": 992,
+                 "settings": {
+                   "slidesToShow": 4
+                 }
+               }, {
+                 "breakpoint": 768,
+                 "settings": {
+                   "slidesToShow": 3
+                 }
+               }, {
+                 "breakpoint": 576,
+                 "settings": {
+                   "slidesToShow": 3
+                 }
+               }, {
+                 "breakpoint": 480,
+                 "settings": {
+                   "slidesToShow": 2
+                 }
+               }]'>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/amazon-white.png"
+                             alt="Image Description">
+                    </div>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/google-white.png"
+                             alt="Image Description">
+                    </div>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/paypal-white.png"
+                             alt="Image Description">
+                    </div>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/slack-white.png"
+                             alt="Image Description">
+                    </div>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/samsung-white.png"
+                             alt="Image Description">
+                    </div>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/airbnb-white.png"
+                             alt="Image Description">
+                    </div>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/lenovo-white.png"
+                             alt="Image Description">
+                    </div>
+                    <div class="js-slide">
+                        <img class="u-clients" src="/static/search/assets/img/clients/spotify-white.png"
+                             alt="Image Description">
+                    </div>
+                </div>
+                <!-- End Slick Carousel -->
+            </div>
+        </div>
+    </div>
+    <!-- End CTA -->
+{% endblock %}

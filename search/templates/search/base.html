@@ -1,0 +1,83 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Title -->
+    <title>AUSTechConnect</title>
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'search/favicon.ico' %}">
+
+    {% block css %}
+        {% include 'search/components/css.html' %}
+    {% endblock %}
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+<!-- Skippy -->
+<a id="skippy" class="sr-only sr-only-focusable u-skippy" href="#content">
+    <div class="container">
+        <span class="u-skiplink-text">Skip to main content</span>
+    </div>
+</a>
+<!-- End Skippy -->
+
+{% block header %}
+    <!-- ========== HEADER ========== -->
+    {% include 'search/components/header.html' %}
+    <!-- ========== END HEADER ========== -->
+{% endblock %}
+
+
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+    {% block content %} {% endblock %}
+</main>
+<!-- ========== END MAIN CONTENT ========== -->
+
+{% block footer %}
+    <!-- ========== FOOTER ========== -->
+    {% include 'search/components/footer.html' %}
+    <!-- ========== END FOOTER ========== -->
+{% endblock %}
+
+
+<!-- ========== SECONDARY CONTENTS ========== -->
+{% block sidebarnav %}
+    <!-- Panel Sidebar Navigation -->
+    {% include 'search/components/sidebarnav.html' %}
+    <!-- End Panel Sidebar Navigation -->
+{% endblock %}
+
+{% block signup %}
+    <!-- Signup Modal Window -->
+    {% include 'search/components/signup.html' %}
+    <!-- End Signup Modal Window -->
+{% endblock %}
+
+<!-- ========== END SECONDARY CONTENTS ========== -->
+
+<!-- Go to Top -->
+<a class="js-go-to u-go-to" href="javascript:;"
+   data-position='{"bottom": 15, "right": 15 }'
+   data-type="fixed"
+   data-offset-top="400"
+   data-compensation="#header"
+   data-show-effect="slideInUp"
+   data-hide-effect="slideOutDown">
+    <span class="fa fa-arrow-up u-go-to__inner"></span>
+</a>
+<!-- End Go to Top -->
+
+{% block jsplugins %}
+    {% include 'search/components/jsplugins.html' %}
+{% endblock %}
+{% block extra_js %} {% endblock %}
+</body>
+</html>

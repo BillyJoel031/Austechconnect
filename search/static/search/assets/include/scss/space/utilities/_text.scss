@@ -1,0 +1,42 @@
+/*------------------------------------
+  Font Size
+------------------------------------*/
+
+.font-size-13 {
+  font-size: .8125rem;
+}
+
+.font-size-14 {
+  font-size: .875rem;
+}
+
+.font-size-18 {
+  font-size: 1.125rem;
+}
+
+.font-size-32 {
+  font-size: 2rem;
+}
+
+// Medium Devices
+@include media-breakpoint-down(md) {
+  .font-size-48--md-down {
+    font-size: 3rem;
+  }
+}
+
+/*------------------------------------
+  Font Weight
+------------------------------------*/
+
+.font-weight-medium {
+  font-weight: $font-weight-medium !important;
+}
+
+/*------------------------------------
+  Font Family
+------------------------------------*/
+
+.font-family-charm {
+  font-family: $font-family-charm !important;
+}
