@@ -1,0 +1,56 @@
+<form class="js-validate w-100" id="search_form" target="{% url 'api_person_search' %}">
+    <div class="row">
+        <!-- Input -->
+        <div class="col-lg-4">
+            <label class="d-block text-white font-weight-medium text-uppercase">Search</label>
+            <div class="input-group form ">
+                <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                        <span class="fas fa-map-marker-alt text-purple" id="keywordInputAddon"></span>
+                                </span>
+                </div>
+
+                <input name="keywords" type="text" class="form-control form__input"
+                       placeholder="Enter keywords"
+                       aria-label="Enter city" aria-describedby="keywordInputAddon">
+            </div>
+        </div>
+        <!-- End Input -->
+
+        <!-- Input -->
+        <div class="col-lg-3">
+            <label class="d-block text-white font-weight-medium text-uppercase">Where</label>
+            <div class="input-group form">
+                <div class="input-group-prepend form__prepend">
+                              <span class="input-group-text form__text">
+                                  <span class="fas fa-map-marker-alt text-primary" id="locationInputAddon"></span>
+                              </span>
+                </div>
+
+                <input name="location" type="text" class="form-control form__input"
+                       placeholder="Location" aria-label="Enter destination"
+                       aria-describedby="locationInputAddon">
+            </div>
+        </div>
+        <!-- End Input -->
+
+        <!-- Input -->
+        <div class="col-lg-3">
+            <label class="d-block text-white font-weight-medium text-uppercase"
+                   for="categorySelect">Category</label>
+            <div class="input-group form">
+                <select class="form-control" id="categorySelect" name="category">
+                    <option value="0">All Categories</option>
+                    {% for category in person_categories %}
+                        <option value="{{ category.pk }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <!-- End Input -->
+
+        <div class="col-lg-2 align-self-lg-end">
+            <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Search</button>
+        </div>
+    </div>
+</form>
