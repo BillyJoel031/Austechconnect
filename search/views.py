@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from search.models import Category, PersonCategory
 from search.utils import person_2_dict
@@ -18,8 +18,12 @@ def index(request):
     return render(request, 'search/index.html', context)
 
 
-def profile(request):
-    return render(request, 'search/profile.html', {})
+def profile(request, person_id):
+    person = get_object_or_404(Person, pk=person_id)
+    context = {
+        'person': person
+    }
+    return render(request, 'search/profile.html', context)
 
 
 def person_search(request):

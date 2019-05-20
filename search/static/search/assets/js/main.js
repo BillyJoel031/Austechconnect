@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
         }
         $result.append($(`
           <div class="person" id="${person.id}">
-            <h2>${person.name}</h2>
+            <a href="/profile/${person.pk}"><h2>${person.name}</h2></a>
             <h3>${person.category}</h3>
             <p>${person.location}</p>
             <span class="summary">${person.about}</span>
