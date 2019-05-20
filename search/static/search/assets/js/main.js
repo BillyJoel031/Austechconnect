@@ -3,6 +3,31 @@ jQuery(document).ready(function ($) {
   let $result = $('#result');
   let $searchForm = $('#search_form');
 
+  function renderPersons(persons, clear = true) {
+    if (clear) {
+      $result.empty();
+    }
+    if (Array.isArray(persons) && persons.length) {
+      for (let person of persons) {
+        console.log(person.about.length);
+        if (person.about.length > 500) {
+          var about = person.about;
+          var short_about = about.substring(0, 500);
+          person.about = `${short_about} ...`;
+        }
+        $result.append($(`
+          <div class="person" id="${person.id}">
+            <h2>${person.name}</h2>
+            <h3>${person.category}</h3>
+            <p>${person.location}</p>
+            <span class="summary">${person.about}</span>
+          </div><br/>`));
+      }
+    } else {
+      $result.append('<div><h2>No result found</h2></div>')
+    }
+  }
+
   function renderProjects(projects, clear = true) {
     if (clear) {
       $result.empty();
@@ -76,8 +101,10 @@ jQuery(document).ready(function ($) {
       }
     }).done(function (result) {
       console.log(result);
-      projects = result['projects'];
-      renderProjects(projects);
+      var projects = result['projects'];
+      var persons = result['persons'];
+      // renderProjects(projects);
+      renderPersons(persons)
     });
   });
 

@@ -9,7 +9,6 @@
 {% block content %}
     <div class="d-lg-flex bg-img-hero gradient-overlay-half-dark-v3" style="background: black;">
         <div class="container d-lg-flex align-items-lg-center flex-lg-wrap height-30vh--lg space-2 space-4-top--md space-3-bottom--md">
-
             <!-- Search Form -->
             <div class="login">
                 % if usernick == None:
@@ -31,56 +30,7 @@
                 </form>
                 %end
             </div>
-            <form class="js-validate w-100" id="search_form" target="{% url 'api_search' %}">
-                <div class="row mb-7">
-                    <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0" style="margin-left: 13%">
-                        <!-- Input -->
-                        <label class="d-block text-white font-weight-medium text-uppercase">Search</label>
-                        <div class="input-group form">
-                            <div class="input-group-prepend form__prepend">
-                                <span class="input-group-text form__text">
-                                        <span class="fas fa-map-marker-alt text-purple" id="keywordInputAddon"></span>
-                                </span>
-                            </div>
-
-                            <input name="keywords" type="text" class="form-control form__input"
-                                   placeholder="Enter keywords"
-                                   aria-label="Enter city" aria-describedby="keywordInputAddon">
-                        </div>
-                        <div class="input-group form">
-                            <label class="d-block text-white font-weight-medium text-uppercase"
-                                   for="categorySelect">Category</label>
-                            <select class="form-control" id="categorySelect" name="category">
-                                <option value="0">All Categories</option>
-                                {% for category in categories %}
-                                    <option value="{{ category.pk }}">{{ category.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <!-- End Input -->
-                    </div>
-
-                    <div class="col-sm-6 col-lg-4 mb-4 mb-lg-0">
-                        <!-- Input -->
-                        <label class="d-block text-white font-weight-medium text-uppercase">Where</label>
-                        <div class="input-group form">
-                            <div class="input-group-prepend form__prepend">
-                  <span class="input-group-text form__text">
-                    <span class="fas fa-map-marker-alt text-primary" id="locationInputAddon"></span>
-                  </span>
-                            </div>
-                            <input name="location" type="text" class="form-control form__input"
-                                   placeholder="Enter a city, suburb or region" aria-label="Enter destination"
-                                   aria-describedby="locationInputAddon">
-                        </div>
-                        <!-- End Input -->
-                    </div>
-
-                    <div class="col-lg-2 align-self-lg-end">
-                        <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Search</button>
-                    </div>
-                </div>
-            </form>
+            <div class="search-bar">{% include "search/components/searchbar.html" %}</div>
             <!-- End Search Form -->
         </div>
     </div>

@@ -1,10 +1,16 @@
-footer{
+footer {
     position: relative;
     bottom: 0;
     width: 100%;
 }
 
-#loginform{
+#loginform {
     right: 100px;
     position: relative;
+}
+
+.search-bar {
+    padding: 40px;
+    margin-top: 20px;
+    padding-left: 30px;
 }

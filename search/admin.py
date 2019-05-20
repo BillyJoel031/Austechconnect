@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Person, Project
+from .models import Category, Person, PersonCategory, Project
 
 
 class PersonAdmin(admin.ModelAdmin):
@@ -12,5 +12,6 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Person, PersonAdmin)
+admin.site.register(PersonCategory)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Category)
