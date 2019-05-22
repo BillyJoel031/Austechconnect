@@ -11,9 +11,11 @@ footer {
 
 .search-bar {
     padding: 40px;
+    margin-top: 20px;
     padding-left: 30px;
     background-color: #8CD2E5;
 }
-.result_container{
+
+.result_container {
     padding: 15px;
 }
