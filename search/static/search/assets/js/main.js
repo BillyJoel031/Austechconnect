@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
             <h3>${person.category}</h3>
             <p>${person.location}</p>
             <span class="summary">${person.about}</span>
-          </div><br/>`));
+          </div><p>___________________________________________________________________</p><br/>`));
       }
     } else {
       $result.append('<div><h2>No result found</h2></div>')
