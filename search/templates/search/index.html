@@ -10,32 +10,13 @@
     <div class="d-lg-flex bg-img-hero gradient-overlay-half-dark-v3" style="background: black;">
         <div class="container d-lg-flex align-items-lg-center flex-lg-wrap height-30vh--lg space-2 space-4-top--md space-3-bottom--md">
             <!-- Search Form -->
-            <div class="login">
-
-                <form method="POST" action="/login" id="loginform">
-                    <label for="nick"></label>
-                    <input type="text" placeholder="username" name="nick"/>
-                    <label for="password"></label>
-                    <input type="password" placeholder="password" name="password"/>
-                    <input type="submit" value="Login"/>
-                </form>
-
-            </div>
-            <div class="loggedin">
-                <form method="POST" action="/logout" id="logoutform">
-                    <input type="submit" name="logout" value="Logout"/>
-                </form>
-
-            </div>
-            <!-- End Search Form -->
         </div>
+            <!-- End Search Form -->
     </div>
     <div class="search-bar">{% include "search/components/searchbar.html" %}</div>
     <!-- Search results section-->
     <div class="result_container">
-        <div class="container" id="result">
-
-        </div>
+        <div class="container" id="result"></div>
     </div>
     <!-- Hero Section -->
     <div class="js-slick-carousel u-slick"

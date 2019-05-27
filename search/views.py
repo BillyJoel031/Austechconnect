@@ -1,10 +1,14 @@
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
-
+from django.http import HttpResponse
 from search.models import Category, PersonCategory
 from search.utils import person_2_dict
 from .models import Person, Project
+
+
+def about(request):
+    return HttpResponse('<h1>Home Page</h1>')
 
 
 def index(request):

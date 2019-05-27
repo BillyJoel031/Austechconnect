@@ -1,0 +1,30 @@
+/*------------------------------------
+  Slick
+------------------------------------*/
+
+.u-slick {
+	position: relative;
+}
+
+// Cursor pointer class
+.u-slick--cursor-pointer {
+  .slick-slide {
+    cursor: pointer;
+  }
+}
+
+// Disable transform effect
+.u-slick--transform-off {
+  &.slick-transform-off .slick-track,
+  .slick-track {
+		transform: none !important;
+	}
+}
+
+@include media-breakpoint-up(lg) {
+  .u-slick--transform-off-lg {
+    &.slick-transform-off .slick-track {
+      transform: none !important;
+    }
+  }
+}

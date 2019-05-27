@@ -1,0 +1,75 @@
+/*------------------------------------
+  Background Overlay Gradients
+------------------------------------*/
+
+[class*="gradient-overlay-half"] {
+	position: relative;
+	z-index: 1;
+
+	&::before {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		content: "";
+	}
+}
+
+.gradient-overlay-half-dark-video-v1 {
+	&::before {
+		z-index: 2;
+		background-color: rgba($dark, .95);
+	}
+}
+
+.gradient-overlay-half-white-v1 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($white, .99), $hs-end-color: transparent, $hs-start-percent: 30%, $hs-end-percent: 60%, $deg: 60deg);
+	}
+}
+
+.gradient-overlay-half-dark-v1 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($dark, .5), $hs-end-color: transparent, $deg: 30deg);
+	}
+}
+
+.gradient-overlay-half-dark-v2 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($dark, .6), $hs-end-color: transparent, $deg: 0deg);
+	}
+}
+
+.gradient-overlay-half-dark-v3 {
+	&::before {
+		@include gradient-x($hs-start-color: transparent, $hs-end-color: rgba($dark, .5), $deg: 0deg);
+	}
+}
+
+.gradient-overlay-half-dark-v4 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($dark, .9), $hs-end-color: $dark, $hs-start-percent: 10%, $hs-end-percent: 50%, $deg: 150deg);
+	}
+}
+
+.gradient-overlay-half-primary-v1 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($purple, .95), $hs-end-color: rgba($primary, .95), $deg: 30deg);
+	}
+}
+
+.gradient-overlay-half-purple-v1 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($purple, .35), $hs-end-color: $purple, $hs-start-percent: 10%, $hs-end-percent: 70%, $deg: 180deg);
+	}
+}
+
+.gradient-overlay-half-purple-v2 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($purple, .9), $hs-end-color: $purple, $hs-start-percent: 10%, $hs-end-percent: 50%, $deg: 150deg);
+	}
+}
