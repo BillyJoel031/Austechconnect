@@ -7,17 +7,19 @@
 {% endblock %}
 
 {% block content %}
-    <div class="d-lg-flex bg-img-hero gradient-overlay-half-dark-v3" style="background: black;">
-        <div class="container d-lg-flex align-items-lg-center flex-lg-wrap height-30vh--lg space-2 space-4-top--md space-3-bottom--md">
-            <!-- Search Form -->
-        </div>
+    {% if user.is_authenticated %}
+        <div class="d-lg-flex bg-img-hero gradient-overlay-half-dark-v3" style="background: black;">
+            <div class="container d-lg-flex align-items-lg-center flex-lg-wrap height-30vh--lg space-2 space-4-top--md space-3-bottom--md">
+                <!-- Search Form -->
+            </div>
             <!-- End Search Form -->
-    </div>
-    <div class="search-bar">{% include "search/components/searchbar.html" %}</div>
-    <!-- Search results section-->
-    <div class="result_container">
-        <div class="container" id="result"></div>
-    </div>
+        </div>
+        <div class="search-bar">{% include "search/components/searchbar.html" %}</div>
+        <!-- Search results section-->
+        <div class="result_container">
+            <div class="container" id="result"></div>
+        </div>
+    {% endif %}
     <!-- Hero Section -->
     <div class="js-slick-carousel u-slick"
          data-infinite="true"
@@ -48,7 +50,7 @@
                     </div>
                     <div data-scs-animation-in="fadeInUp"
                          data-scs-animation-delay="400">
-                        <a class="btn btn-light" href="#signupModal" role="button" data-modal-target="#signupModal">
+                        <a class="btn btn-light" href="{% url 'register' %}" role="button" data-modal-target="{% url 'register' %}">
                             <span class="fa fa-user-circle mr-1"></span>
                             Get Started with AusTechConnect
                         </a>
@@ -77,7 +79,7 @@
                     </div>
                     <div data-scs-animation-in="fadeInUp"
                          data-scs-animation-delay="400">
-                        <a class="btn btn-light" href="#signupModal" role="button" data-modal-target="#signupModal">
+                        <a class="btn btn-light" href="{% url 'register' %}" role="button" data-modal-target="{% url 'register' %}">
                             <span class="fa fa-user-circle mr-1"></span>
                             Get Started with AusTechConnect
                         </a>
@@ -106,7 +108,7 @@
                     </div>
                     <div data-scs-animation-in="fadeInUp"
                          data-scs-animation-delay="400">
-                        <a class="btn btn-light" href="#signupModal" role="button" data-modal-target="#signupModal">
+                        <a class="btn btn-light" href="{% url 'register' %}" role="button" data-modal-target="{% url 'register' %}">
                             <span class="fa fa-user-circle mr-1"></span>
                             Get Started with AusTechConnect
                         </a>

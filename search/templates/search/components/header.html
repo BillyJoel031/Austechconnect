@@ -34,7 +34,7 @@
                             data-event="hover"
                             data-animation-in="fadeInUp"
                             data-animation-out="fadeOut">
-                            <a id="homeMegaMenu" class="nav-link u-header__nav-link" href="javascript:;"
+                            <a id="homeMegaMenu" class="nav-link u-header__nav-link" href="{% url "search:index" %}"
                                aria-haspopup="true"
                                aria-expanded="false"
                                aria-labelledby="homeSubMenu">
@@ -547,12 +547,22 @@
 
                         <!-- Button -->
                         <li class="nav-item u-header__nav-item-btn">
-                            <a class="btn btn-sm btn-primary" href="#signupModal" role="button"
-                               data-modal-target="#signupModal"
-                               data-overlay-color="#151b26">
-                                <span class="fa fa-user-circle mr-1"></span>
-                                Signin
-                            </a>
+                            {% if user.is_authenticated %}
+                                <a class="btn btn-sm btn-primary" href="{% url 'logout' %}">Logout</a>
+                            {% else %}
+                                <a class="btn btn-sm btn-primary" href="{% url 'login' %}" role="button"
+                                   data-modal-target="{% url 'login' %}"
+                                   data-overlay-color="#151b26">
+                                    <span class="fa fa-user-circle mr-1"></span>
+                                    Login
+                                </a>
+                                <a class="btn btn-sm btn-primary" href="{% url 'register' %}" role="button"
+                                   data-modal-target="{% url 'register' %}"
+                                   data-overlay-color="#151b26">
+                                    <span class="fa fa-user-circle mr-1"></span>
+                                    Register
+                                </a>
+                            {% endif %}
                         </li>
                         <!-- End Button -->
 
