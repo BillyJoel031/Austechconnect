@@ -13568,9 +13568,7 @@ button:focus {
   .u-header__navbar-brand-default {
     display: inline-block;
     height: 93px;
-    width: 100px;
     padding: 11px;
-    margin-top: -32px;
   }
   .u-header__navbar-brand-mobile {
     display: none;

@@ -7,7 +7,7 @@
                 <!-- Logo -->
                 <div class="u-header__navbar-brand-wrapper">
                     <a class="navbar-brand u-header__navbar-brand" href="{% url "search:index" %}" aria-label="Space">
-                        <img class="u-header__navbar-brand-default" src="/static/search/logo.png" alt="Logo">
+                        <div class="u-header__navbar-brand-default"> AusTechConnect</div>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -547,7 +547,7 @@
                         <!-- Button -->
                         <li class="nav-item u-header__nav-item-btn">
                             {% if user.is_authenticated %}
-                                <a class="text-white height-100vh">Login as {{ request.user.first_name }}</a>
+                                <a class="text-white height-100vh">Logged in as {{ request.user.first_name }}</a>
 
                                 <a class="btn btn-sm btn-primary" href="{% url 'logout' %}">Logout</a>
                             {% else %}
