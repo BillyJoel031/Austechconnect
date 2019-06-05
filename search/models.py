@@ -1,6 +1,7 @@
 from django.db import models
 
 
+
 class Person(models.Model):
     id = models.BigIntegerField(primary_key=True)
     name = models.CharField(max_length=40, help_text='First Name', blank=False, null=False)
