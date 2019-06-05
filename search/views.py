@@ -44,10 +44,15 @@ def person_search(request):
     if category_id:
         category = PersonCategory.objects.filter(pk=category_id).first()
 
-    persons = Person.objects.filter(
-        Q(name__icontains=search_query) |
-        Q(about__icontains=search_query)
-    )
+    # remove redundant whitespaces
+    search_query = ' '.join(search_query.split())
+
+    # keywords search
+    words = search_query.split(' ')
+    condition = Q(name__icontains=search_query) | Q(about__icontains=search_query)
+    for word in words:
+        condition |= Q(about__icontains=word)
+    persons = Person.objects.filter(condition)
 
     # keep filtering by location
     if location:
