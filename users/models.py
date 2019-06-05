@@ -12,7 +12,7 @@ class CustomUser(AbstractUser):
     last_name = None
     email = models.EmailField(_('email address'), unique=True)
 
-    profile = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
+    profile = models.OneToOneField(Person, on_delete=models.CASCADE, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
