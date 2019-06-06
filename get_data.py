@@ -5,7 +5,7 @@ import requests
 
 
 def setup():
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fledge_innovation.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "austech_connect.settings")
     import django
     django.setup()
 

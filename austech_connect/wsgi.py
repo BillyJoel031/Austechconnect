@@ -1,5 +1,5 @@
 """
-WSGI config for fledge_innovation project.
+WSGI config for austech_connect project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fledge_innovation.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'austech_connect.settings')
 
 application = get_wsgi_application()
